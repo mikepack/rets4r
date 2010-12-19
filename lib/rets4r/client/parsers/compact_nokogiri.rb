@@ -30,6 +30,7 @@ module RETS4R
         def start_element name, attrs = []
           case name
           when 'DELIMITER'
+            attrs = attrs.last if attrs.last.class == Array
             @delimiter = attrs.last.to_i.chr
           when 'COLUMNS'
             @columns_element = true

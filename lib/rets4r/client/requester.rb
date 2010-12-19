@@ -85,6 +85,9 @@ module RETS4R
             headers = @headers
             headers.merge(header) unless header.empty?
 
+            #Always ensure Authorization has the correct url
+            headers['Authorization'].sub!(/uri=\S+/i, "uri=\"#{url.path}\",") unless headers['Authorization'].nil?
+
             @pre_request_block.call(self, http, headers) if @pre_request_block
 
             logger.debug(headers.inspect) if logger
